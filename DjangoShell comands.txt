@@ -1,0 +1,49 @@
+from news.models import *
+
+user1 = User.objects.create_user(username = 'Roberto')
+user2 = User.objects.create_user(username = 'Carlos')
+
+Author.objects.create(authorUser = user1)
+Author.objects.create(authorUser = user2)
+
+Category.objects.create(name = 'Nature')
+Category.objects.create(name = 'IT')
+Category.objects.create(name = 'Philosophy')
+Category.objects.create(name = 'Construction')
+
+author = Author.objects.get(id = 1)
+
+Post.objects.create(author = author, categoryType = 'NW', title = 'Who is Shou Zi Chew?', text = 'Shou Zi Chew, the CEO of TikTok'
+Post.objects.create(author = author, categoryType = 'AR', title = 'The Last Article', text = 'The Last Article is a short alternate history story by Harry Turtledove')
+Post.objects.create(author = author, categoryType = 'AR', title = 'The Goldilocks Rule: How to Stay Motivated in Life and Business', text = 'This article is an excerpt from Atomic Habits, my New York Times bestselling book.')
+
+
+Post.objects.get(id = 1).postCategory.add(Category.objects.get(id = 1))
+Post.objects.get(id = 1).postCategory.add(Category.objects.get(id = 2))
+Post.objects.get(id = 1).postCategory.add(Category.objects.get(id = 3))
+Post.objects.get(id = 2).postCategory.add(Category.objects.get(id = 1))
+
+
+Comment.objects.create(commentPost = Post.objects.get(id = 1), commentUser = Author.objects.get(id = 1).authorUser, text = 'Awesome')
+
+Comment.objects.get(id = 1).like()
+Comment.objects.get(id = 1).like()
+Comment.objects.get(id = 1).dislike()
+Comment.objects.get(id = 3).dislike()
+Post.objects.get(id = 1).like()
+Post.objects.get(id = 1).like()
+Post.objects.get(id = 2).like()
+
+Comment.objects.get(id = 1).rating
+
+a.update_rating()
+
+a.ratingAuthor
+
+a = Author.objects.all().order_by('-ratingAuthor').values('authorUser', 'ratingAuthor')[0]
+
+for i in a:
+    ...:     i.ratingAuthor
+    ...:     i.authorUser.username
+
+print(a)
